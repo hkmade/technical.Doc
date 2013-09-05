@@ -51,14 +51,14 @@
 * wordpress에서도 이 xml을 import하는 플러그인이 있지만 계속 오류가 발생하고 있고 import가 성공해도 본문이 없는 블로그타이틀만 나타나고 있다. (내경우)
 
 
-###Stage 1. 이글루스 사전 작업
+##### 이글루스 사전 작업
 자신의 이글루 블로그에서 환경설정을 확인한다.
 
 	미분류로 카테고리를 지정하지 않은 글들은 카테고리를 지정하여 분류한다
 	트랙백 목록을 확인하여 스팸성 트랙백은 모두 삭제
 	또한 블로그 스킨은 이글루에서 기본으로 제공하는 HTML화이트로 변경한다. 
 
-###Stage 2. egloos2TTXML 실행
+#### egloos2TTXML 실행
 
 Download Site
 **`http://nosyu.pe.kr/2811`** 
@@ -102,7 +102,7 @@ DB생성 인코딩 셋도 기본값으로 유지하자.
 tc  라는 DB생성 할것
 
 ##### Apahce 설정 변경
-URL Rewrite 모듋의 활성화가 필요하다. 
+URL Rewrite 모듈의 활성화가 필요하다. 
 
 apache2 이상부터 기존 설정화일의 구성이 많이 변경되었다. (좀더 구조화되었다는데..)
 아래 구문을 설정화일에 추가 해야 한다. (Unbuntu Linux 기준)
@@ -223,8 +223,8 @@ local에서 xml를 로드하는 것은 3G가 한계이며 TC에서 백업할때 
 이글루스 지인들과 백업 혹은 이사에 관심있는 이글루스 블로그 유저들에게 참고가 되었으면 한다.
 특히나 egloos2TTXML을 만들고 고민하고 배포하신 nosyn님께 다시한번 감사의 인사를 전한다. 
 
-참고로 나의 거실노트북에서 운영하고 있는 WP에 잘 보관되어 있는 이글루스 글과 댓글은 아래와 같다. 
-![](https://www.monosnap.com/image/N32HorvYifL9FOlAwY8QUjZiZ.png)
+참고로 나의 거실노트북에서 운영하고 있는 WP에 잘 보관되어 있는 이글루스 글과 댓글은 아래와 같다.   
+![WP 알림판](https://www.monosnap.com/image/N32HorvYifL9FOlAwY8QUjZiZ.png)
 
 
 
