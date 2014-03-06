@@ -409,15 +409,12 @@ General Settings - MySQL connection collation은  utf8_general_ci로 설정되�
 #DIY NAS App설치
 ###Ajaxplorer
 웹하드 인터페이스를 구현한 오픈소스 프로젝트
-홈페이지. http://pyd.ioajaxplorer.info
+홈페이지. http://pyd.io
 2013.03현재 stable version은 4.2.3
 2014.03현재 5.2.2
 apt-get install 을 이용해서 편리하게 설치(는 안됨.)
 
-
-
-
-download후 해당 웹서버에 업로드
+site에서 download후 해당 웹서버에 업로드
 
 	root@ubuntu:/home/hkmade# ls
 	ajaxplorer-core-4.2.3.tar.gz  Documents  examples.desktop  Pictures  Templates
@@ -465,8 +462,7 @@ AjaXplorer Diagnostic Tool화면이 나옴.
 	-rw-r--r--  1 root     root       20 Mar  7 17:35 test.php
 	root@ubuntu:/var/www#
 	
-	
-	
+		
 apache config 에서 /var/www/ajaxp/data 영역을 Override ALL로 설정.
 
 	/etc/apache2/apache2.conf 에서 추가
@@ -486,12 +482,45 @@ Global Configurations - Application Core - Uploaders Options
 Limitation의 File Size를 체크한다. php에 설정한대로 4G의 byte수가 할당됨.
 
 대용량 업로드를 위해서는 java 기반의 uploader plugin을 활성화 한다.
+이를 위해서 jar화일의 download와 pydio의 plugin 디렉토리로의 upload가 필요
 
-- 
+download jar file
+http://pyd.io/plugins/uploader/jumploader - 설치가이드
 
+http://jumploader.com 에서 jar 화일 download
+jumploader_z.jar 화일 선택후 download
+pyd.io의 jumploader 폴더에 해당 jar화일 이동
+
+	root:/var/www/pydio/plugins# cd *jumploader
+	root:/var/www/pydio/plugins/uploader.jumploader# ls
+	class.JumploaderProcessor.php  i18n  jumploader_tpl.html  manifest.xml  plugin_doc.html
+	root:/var/www/pydio/plugins/uploader.jumploader# cp /tmp/*.jar .
+
+
+pydio.io의 Gloabal Configuration - Feature plugins - Uploader에서
+기존의 활성화되어 있는 Flash upload, HTML upload 모두 Enable에서 해제.
+Jumploader를 활성화 하고 applet install 할것.
+저장 후 재로그인.
+파일 업로드시 기존의 html방식이 아닌 applet방식으로 upload창이 뜨는지 확인 할것.
+
+단 이방식은 applet기반이기 때문에 uploader의 PC에 JRE이상이 설치되어 있어야 한다. 
 
 
 ###Ubuntu에서 host 디렉토리공유
+#### VMware tool 인스톨.
+VM이 반드시 기동된 상태에서 Vmware workstation - VM - install VMware Tools
+만약 설치시 아래의 메세지가 나온다면 
+VMware Tools installation cannot be started manually while the easy install is in progress.
+http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=1017687
+위 내용은 핵심은 바로 Floppy dirvie를 auto detect로 설정하는 부분이다. 
+VM - Setting - Floppy - Use physical dirive : Auto detect로 설정할 것.
+
+URL참고하여 VMtool 설치할것.
+ install VMware Tools 설치.
+ 로그인 하면 /media 부분에  VMware tools 가 마운트되어 있다. 
+ 
+  
+
 ####hgfs활성화
 
 VMware에서 해당 VM의 vmtool 재설치
