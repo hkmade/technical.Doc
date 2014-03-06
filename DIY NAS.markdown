@@ -518,285 +518,35 @@ VM - Setting - Floppy - Use physical dirive : Auto detect로 설정할 것.
 URL참고하여 VMtool 설치할것.
  install VMware Tools 설치.
  로그인 하면 /media 부분에  VMware tools 가 마운트되어 있다. 
+
+
+	 root@miles-base-ubt02:/media/VMware Tools# ls -la
+	합계 60599
+	dr-xr-xr-x 2 miles miles     2048  8월 27  2013 .
+	drwxr-xr-x 5 root  root      4096  3월  6 16:52 ..
+	-r--r--r-- 1 miles miles 60654199  8월 27  2013 VMwareTools-9.6.0-1294478.tar.gz
+	-r-xr-xr-x 1 miles miles     1961  8월 27  2013 manifest.txt
+	-r--r--r-- 1 miles miles     1847  8월 27  2013 run_upgrader.sh
+	-r-xr-xr-x 1 miles miles   689456  8월 27  2013 vmware-tools-upgrader-32
+	-r-xr-xr-x 1 miles miles   698376  8월 27  2013 vmware-tools-upgrader-64
+	root@miles-base-ubt02:/media/VMware Tools#
+
+read only media 폴더에서  /tmp폴더로 해당 gz화일을 복사한 후 압축해제한다.
  
-  
+ root@miles-base-ubt02:/tmp/vmware-tools-distrib# ls
+FILES  INSTALL  bin  doc  etc  installer  lib  vmware-install.pl
+root@miles-base-ubt02:/tmp/vmware-tools-distrib# ./vmware-install.pl
 
-####hgfs활성화
+매우 길게 설치작업이 진행되며.  선택값은 모두 엔터. (기본값으로 충분)
+이 VMware tool을 설치해야 하는 이유는 host PC의 파일시스템의 공유기능을 이용하기 위해서이다. 
 
-VMware에서 해당 VM의 vmtool 재설치
-/media/VMware Tools에 마운트됨.
-gz화일을 /tmp에 복사 후 압축 해제
-/tmp/vmware-tools-distrib 이동
-pl 설치 화일로 설치.
+설치완료후 hgfs가 활성화 된 것을 확인할 것.
 
-아래꺼는 무시할것.
+	root@miles-base-ubt02:~# cd /mnt
+	root@miles-base-ubt02:/mnt# ls
+	hgfs
+	root@miles-base-ubt02:/mnt#
 
-
-
-
-
-	hkmade@221.148.161.172's password:  
-	Welcome to Ubuntu 12.10 (GNU/Linux 3.5.0-25-generic i686)  
-	
-	 * Documentation:  https://help.ubuntu.com/  
-	 39 packages can be updated.  
-	34 updates are security updates.  
-	
-	Last login: Wed Mar 20 01:01:46 2013 from 58.238.89.100  
-	hkmade@ubuntu:~$ sudo -i  
-	[sudo] password for hkmade:  
-	root@ubuntu:~# apt-cache search open-vm  
-	open-vm-dkms - Source for VMware guest systems driver (DKMS)  
-	open-vm-toolbox - tools and components for VMware guest systems (GUI tools)  
-	open-vm-tools - tools and components for VMware guest systems (CLI tools)  
-	open-vm-tools-dbg - tools and components for VMware guest systems (debug)  
-	open-vm-tools-dev - tools and components for VMware guest systems (development)  
-	root@ubuntu:~# apt-get install open-vm-tools  
-	패키지 목록을 읽는 중입니다... 완료
-	의존성 트리를 만드는 중입니다
-	상태 정보를 읽는 중입니다... 완료
-	다음 패키지가 자동으로 설치되었지만 더 이상 필요하지 않습니다:
-	  linux-headers-3.5.0-17 linux-headers-3.5.0-17-generic
-	Use 'apt-get autoremove' to remove them.
-	다음 패키지를 더 설치할 것입니다:
-	  dkms ethtool fakeroot libdumbnet1 open-vm-dkms zerofree
-	제안하는 패키지:
-	  dpkg-dev debhelper open-vm-toolbox
-	다음 새 패키지를 설치할 것입니다:
-	  dkms ethtool fakeroot libdumbnet1 open-vm-dkms open-vm-tools zerofree
-	0개 업그레이드, 7개 새로 설치, 0개 제거 및 35개 업그레이드 안 함.
-	1,140 k바이트 아카이브를 받아야 합니다.
-	이 작업 후 9,462 k바이트의 디스크 공간을 더 사용하게 됩니다.
-	계속 하시겠습니까 [Y/n]? y
-	받기:1 http://us.archive.ubuntu.com/ubuntu/ quantal-updates/main dkms all 2.2.0.3-1.1ubuntu1.1 [71.4 kB]
-	받기:2 http://us.archive.ubuntu.com/ubuntu/ quantal/main ethtool i386 1:3.4.1-1 [97.6 kB]
-	받기:3 http://us.archive.ubuntu.com/ubuntu/ quantal/main fakeroot i386 1.18.4-2 [88.0 kB]
-	받기:4 http://us.archive.ubuntu.com/ubuntu/ quantal/universe libdumbnet1 i386 1.12-3.1 [30.7 kB]
-	받기:5 http://us.archive.ubuntu.com/ubuntu/ quantal/multiverse open-vm-dkms all 2012.05.21-724730-0ubuntu2 [394 kB]
-	받기:6 http://us.archive.ubuntu.com/ubuntu/ quantal/multiverse open-vm-tools i386 2012.05.21-724730-0ubuntu2 [450 kB]
-	받기:7 http://us.archive.ubuntu.com/ubuntu/ quantal/universe zerofree i386 1.0.2-1ubuntu1 [8,574 B]
-	내려받기 1,140 k바이트, 소요시간 11초 (95.5 k바이트/초)
-	Selecting previously unselected package dkms.
-	(데이터베이스 읽는중 ...현재 184292개의 파일과 디렉터리가 설치되어 있습니다.)
-	dkms 패키지를 푸는 중입니다 (.../dkms_2.2.0.3-1.1ubuntu1.1_all.deb에서) ...
-	Selecting previously unselected package ethtool.
-	ethtool 패키지를 푸는 중입니다 (.../ethtool_1%3a3.4.1-1_i386.deb에서) ...
-	Selecting previously unselected package fakeroot.
-	fakeroot 패키지를 푸는 중입니다 (.../fakeroot_1.18.4-2_i386.deb에서) ...
-	Selecting previously unselected package libdumbnet1.
-	libdumbnet1 패키지를 푸는 중입니다 (.../libdumbnet1_1.12-3.1_i386.deb에서) ...
-	Selecting previously unselected package open-vm-dkms.
-	open-vm-dkms 패키지를 푸는 중입니다 (.../open-vm-dkms_2012.05.21-724730-0ubuntu2_all.deb에서) ...
-	Selecting previously unselected package open-vm-tools.
-	open-vm-tools 패키지를 푸는 중입니다 (.../open-vm-tools_2012.05.21-724730-0ubuntu2_i386.deb에서) ...
-	Selecting previously unselected package zerofree.
-	zerofree 패키지를 푸는 중입니다 (.../zerofree_1.0.2-1ubuntu1_i386.deb에서) ...
-	man-db에 대한 트리거를 처리하는 중입니다 ...
-	ureadahead에 대한 트리거를 처리하는 중입니다 ...
-	ureadahead will be reprofiled on next reboot
-	dkms (2.2.0.3-1.1ubuntu1.1) 설정하는 중입니다 ...
-	ethtool (1:3.4.1-1) 설정하는 중입니다 ...
-	fakeroot (1.18.4-2) 설정하는 중입니다 ...
-	update-alternatives: using /usr/bin/fakeroot-sysv to provide /usr/bin/fakeroot (fakeroot) in 자동 모드
-	libdumbnet1 (1.12-3.1) 설정하는 중입니다 ...
-	open-vm-dkms (2012.05.21-724730-0ubuntu2) 설정하는 중입니다 ...
-	Loading new open-vm-tools-2012.05.21 DKMS files...
-	First Installation: checking all kernels...
-	Building only for 3.5.0-25-generic
-	Building for architecture i686
-	Building initial module for 3.5.0-25-generic
-	Done.
-
-	vmblock:
-	Running module version sanity check.
-	 - Original module
-		- No original module exists within this kernel
-		- Installation
-		- Installing to /lib/modules/3.5.0-25-generic/updates/dkms/
-
-	vmci.ko:
-	Running module version sanity check.
-	 - Original module
-		- No original module exists within this kernel
-		- Installation
-		- Installing to /lib/modules/3.5.0-25-generic/updates/dkms/
-
-	vmhgfs.ko:
-	Running module version sanity check.
-	 - Original module
-		- No original module exists within this kernel
-		- Installation
-		- Installing to /lib/modules/3.5.0-25-generic/updates/dkms/
-
-	vmsync.ko:
-	Running module version sanity check.
-	 - Original module
-		- No original module exists within this kernel
-		- Installation
-		- Installing to /lib/modules/3.5.0-25-generic/updates/dkms/
-
-	vmxnet.ko:
-	Running module version sanity check.
-	 - Original module
-		- No original module exists within this kernel
-		- Installation
-		- Installing to /lib/modules/3.5.0-25-generic/updates/dkms/
-
-	vsock.ko:
-	Running module version sanity check.
-	 - Original module
-		- No original module exists within this kernel
-		- Installation
-		- Installing to /lib/modules/3.5.0-25-generic/updates/dkms/
-
-	depmod.....
-
-	DKMS: install completed.
-	open-vm-tools (2012.05.21-724730-0ubuntu2) 설정하는 중입니다 ...
-
-	설정 파일 `/etc/vmware-tools/poweroff-vm-default'
-	 ==> 시스템에 있는 파일은 수동으로 만들었거나 스크립트가 만들었습니다.
-	 ==> 패키지 안에도 관리자가 제공하는 그 파일이 있습니다.
-	   어떻게 하시겠습니까? 다음 중에 하나를 선택할 수 있습니다:
-	    Y 또는 I : 패키지 관리자의 버전을 설치합니다
-	    N 또는 O : 현재 설치된 버전을 유지합니다
-	       D     : 버전 간의 차이점을 표시합니다
-	       Z     : 프로세스를 백그라운드로 하고 상황을 알아봅니다
-	기본값으로 현재 버전을 그대로 유지합니다.
-	*** poweroff-vm-default (Y/I/N/O/D/Z) [기본값=N] ?  N
-	.... 이하 모든 설정은 기본값인 N으로 선택할것
-	....
-	....
-	
-	update-initramfs: deferring update (trigger activated)
-	 * Loading open-vm-tools modules                                        [ OK ]
-		* Remove pcnet32 module, if vmxnet is loaded                           [ OK ]
-		* Starting open-vm daemon vmtoolsd                                     [ OK ]
-	zerofree (1.0.2-1ubuntu1) 설정하는 중입니다 ...
-	libc-bin에 대한 트리거를 처리하는 중입니다 ...
-	ldconfig deferred processing now taking place	
-	ureadahead에 대한 트리거를 처리하는 중입니다 ...
-	initramfs-tools에 대한 트리거를 처리하는 중입니다 ...
-	cp: not writing through dangling symlink `/etc/initramfs-tools/modules'
-	dpkg: error processing initramfs-tools (--configure):
-	 설치한 post-installation 스크립트 하위 프로세스가 오류 1번을 리턴했습니다
-	보고서를 작성하지 않습니다. 이미 MaxReports 값에 도달했습니다.
-	                                                              처리하는데 오류가 발생했습니다:
-	 initramfs-tools
-	E: Sub-process /usr/bin/dpkg returned an error code (1)
-
-마지막 라인에서 오류 발생. 해당 심볼릭 링크를 아래와 같이 확인 할것.  
-
-	root@ubuntu:~# cd /etc/initramfs-tools
-	root@ubuntu:/etc/initramfs-tools# ls
-	conf.d  initramfs.conf  modules.AfterVMwareToolsInstall  scripts
-	hooks   modules         modules.old.0                    update-initramfs.conf
-	root@ubuntu:/etc/initramfs-tools# ls -la
-	total 44
-	drwxr-xr-x   5 root root  4096  3월 20 09:20 .
-	drwxr-xr-x 140 root root 12288  3월 20 09:25 ..
-	drwxr-xr-x   2 root root  4096  3월  4 13:40 conf.d
-	drwxr-xr-x   2 root root  4096 10월 16 18:41 hooks
-	-rw-r--r--   1 root root  1648  7월 13  2011 initramfs.conf
-	lrwxrwxrwx   1 root root    53  3월 20 09:20 modules -> /etc/initramfs-tools/modules.BeforeVMwareToolsInstall
-	-rw-r--r--   1 root root   246  3월 19 18:13 modules.AfterVMwareToolsInstall
-	-rw-r--r--   1 root root   246  3월 19 18:11 modules.old.0
-	drwxr-xr-x  12 root root  4096 10월 16 18:41 scripts
-	-rw-r--r--   1 root root   378  6월 30  2010 update-initramfs.conf
-	root@ubuntu:/etc/initramfs-tools# rm modules
-	root@ubuntu:/etc/initramfs-tools# ln -s modules.AfterVMwareToolsInstall modulesroot@ubuntu:/etc/initramfs-tools# ls -la
-	total 44
-	drwxr-xr-x   5 root root  4096  3월 20 09:40 .
-	drwxr-xr-x 140 root root 12288  3월 20 09:25 ..
-	drwxr-xr-x   2 root root  4096  3월  4 13:40 conf.d
-	drwxr-xr-x   2 root root  4096 10월 16 18:41 hooks
-	-rw-r--r--   1 root root  1648  7월 13  2011 initramfs.conf
-	lrwxrwxrwx   1 root root    31  3월 20 09:40 modules -> modules.AfterVMwareToolsInstall
-	-rw-r--r--   1 root root   246  3월 19 18:13 modules.AfterVMwareToolsInstall
-	-rw-r--r--   1 root root   246  3월 19 18:11 modules.old.0
-	drwxr-xr-x  12 root root  4096 10월 16 18:41 scripts
-	-rw-r--r--   1 root root   378  6월 30  2010 update-initramfs.conf
-
-	root@ubuntu:/etc/initramfs-tools# apt-get install open-vm-tools
-	패키지 목록을 읽는 중입니다... 완료
-	의존성 트리를 만드는 중입니다
-	상태 정보를 읽는 중입니다... 완료
-	open-vm-tools 패키지는 이미 최신 버전입니다.
-	다음 패키지가 자동으로 설치되었지만 더 이상 필요하지 않습니다:
-	  linux-headers-3.5.0-17 linux-headers-3.5.0-17-generic
-	Use 'apt-get autoremove' to remove them.
-	0개 업그레이드, 0개 새로 설치, 0개 제거 및 35개 업그레이드 안 함.
-	1개를 완전히 설치하지 못했거나 지움.
-	이 작업 후 0 바이트의 디스크 공간을 더 사용하게 됩니다.
-	계속 하시겠습니까 [Y/n]? y
-	initramfs-tools (0.103ubuntu0.2) 설정하는 중입니다 ...
-	update-initramfs: deferring update (trigger activated)
-	initramfs-tools에 대한 트리거를 처리하는 중입니다 ...
-	update-initramfs: Generating /boot/initrd.img-3.5.0-25-generic
-	root@ubuntu:/etc/initramfs-tools#
-
-	마치고 리부팅 할것.  
-	hkmade@ubuntu:~$ sudo -i
-	[sudo] password for hkmade:
-	
-	root@ubuntu:~# lsmod | grep -i vmhgfs
-	vmhgfs                 57325  0
-	vmci                   85979  1 vmhgfs
-	
-	vmware config tool 재설정이 필요하다. /mnt로 이동해서 작업시작  
-	
-	
-	root@ubuntu:/mnt# ls -la
-	total 8
-	drwxr-xr-x  2 root root 4096  3월 19 18:11 .
-	drwxr-xr-x 23 root root 4096  3월  5 19:28 ..
-	root@ubuntu:/mnt# mkdir hgfs
-	root@ubuntu:/mnt# ls -la
-	total 12
-	drwxr-xr-x  3 root root 4096  3월 20 10:08 .
-	drwxr-xr-x 23 root root 4096  3월  5 19:28 ..
-	drwxr-xr-x  2 root root 4096  3월 20 10:08 hgfs
-	root@ubuntu:/mnt# cd hgfs
-	root@ubuntu:/mnt/hgfs# ls
-	root@ubuntu:/mnt/hgfs# vmware-config-tools.pl
-	The file /usr/bin/vmware-toolbox-cmd that this program was about to install
-	already exists.  Overwrite? [yes] yes
-	
-	The file /etc/pam.d/vmtoolsd that this program was about to install already
-	exists.  Overwrite? [yes] yes
-	
-	The file /usr/bin/vmware-hgfsclient that this program was about to install
-	already exists.  Overwrite? [yes] yes
-	
-	....
-	.... 설정값은 모두 기본값으로 변경할 필요는 없다. 엔터.엔터.엔터
-	....
-	
-	The module vmxnet3 has already been installed on this system by another
-	installer or package and will not be modified by this installer.  Use the flag
-	--clobber-kernel-modules=vmxnet3 to override.
-	....
-	!!! [EXPERIMENTAL] !!!
-	VMware automatic kernel modules enables automatic building and installation of
-	VMware kernel modules at boot that are not already present.  By selecting yes,
-	you will be enabling this experimental feature.  You can always disable this
-	feature by re-running vmware-config-tools.pl.
-
-	Would you like to enable VMware automatic kernel modules?
-	[no]
-
-	Thinprint provides driver-free printing. Do you wish to enable this feature?
-	[yes]
-
-
-	Disabling timer-based audio scheduling in pulseaudio.
-
-	Detected X server version 1.13.0
-	
-	# /etc/fstab: static file system information.
-	....
-	Enjoy,
-	--the VMware team
 
 이제 마운트 포인트를 만들고 /etc/fstab을 통해 부팅후 자동으로 마운트할수 있도록 설정 추가. 마친 후 시스템 리부팅
 
