@@ -226,15 +226,17 @@ locale_enable=YES
 	root@ubuntu:~#/etc/apache2/ports.conf
 공유기 설정에서 포트포워딩 추가 할것.
 만약 인터넷 서비스의 제한으로 80포트를 사용할수 없는 경우 다른 포트로 웹서비스가 필요. 
-8080을 웹서비스 포트로 사용한다면 위의 ports.conf에서 조정한다. 
+다른 포트를  웹서비스 포트로 사용한다면 위의 ports.conf에서 조정한다. 
 
 이를토대로 공유기 설정에서 포트포워딩 추가 할것.
-192.168.xxx.xx:80 -> xxx.xxx.xxx.xx:80
+192.168.xxx.xx:80 -> xxx.xxx.xxx.xx:81 (기존 VM1이 80port 점유)
 	
 http://xxx.xxx.xxx.xx를 통해 홈페이지 확인 할 것. 
 설치후 기본 htdocs(홈페이지root위치)는 /var/www로 지정되어 있다. 
 
 ###Mysql
+mysql root 패스워드는 설치 중간 창에서 설정한다. 
+
 	hkmade@ubuntu:~$ sudo -i
 	[sudo] password for hkmade:
 	root@ubuntu:~# ls
@@ -322,10 +324,21 @@ mysql 설정화일은 my.cnf이며 포트와 로그 화일등을 설정할 수 �
 	
 apache에서 php모듈이 활성화되었는지 다시 확인.
 
+
 	root@ubuntu:~# sudo a2enmod php5
 	Module php5 already enabled
 	root@ubuntu:~#
 
+php기반 웹스토리지 프로그램을 이용할때 upload, download size의 제약이 있다. 이건 php의 설정에 좌우되므로 수정한 후 apache2 프로세스를 재기동 할것.
+우분투에서는 아래의 경로에 php설정화일이 존재한다. 
+기본적으로 32bit OS레벨에서는 2GB이상의 size는 불가능하다.  
+변경해야할 factor는 아래와 같다.  
+
+	memory_limit
+	post_max_size
+	upload_max_filesize
+
+	root:/etc/php5/apache2/php.ini
 
 ###pear 설치
 pear (PHP Extension and Application Repository)
@@ -387,7 +400,7 @@ http://221.122.xx.xx/test.php  실행 후 정상적인 출력이 되는지 확�
 
 중간 apache 자동모듈설정부분에서는 스페이스바로 apache를 선택하고 OK
 Configuration phpmyadmin부분에서는 mysql를 설치하고 root비번을 설정한 상태라면.. no로 선택
-**http://221.xxx.xxx.xx/phpmyadmin**   으로 접근시 로그인 화면이 나오면 OK.
+**http://xxx.xxx.xxx.xx/phpmyadmin**   으로 접근시 로그인 화면이 나오면 OK.
 
 2013.03현재 phpMyAdmin은 3.4.11.1 버젼.  appearance부분에서 한글은 지원하지 않는다.
 한글 문자셋의 충돌을 막기위해서 우분투서버는 utf-8, phpMyadmin에서 보여지는 
@@ -396,8 +409,13 @@ General Settings - MySQL connection collation은  utf8_general_ci로 설정되�
 #DIY NAS App설치
 ###Ajaxplorer
 웹하드 인터페이스를 구현한 오픈소스 프로젝트
-홈페이지. http://ajaxplorer.info
+홈페이지. http://pyd.ioajaxplorer.info
 2013.03현재 stable version은 4.2.3
+2014.03현재 5.2.2
+apt-get install 을 이용해서 편리하게 설치(는 안됨.)
+
+
+
 
 download후 해당 웹서버에 업로드
 
@@ -450,10 +468,26 @@ AjaXplorer Diagnostic Tool화면이 나옴.
 	
 	
 apache config 에서 /var/www/ajaxp/data 영역을 Override ALL로 설정.
+
+	/etc/apache2/apache2.conf 에서 추가
+	<Directory "/var/www/pydio/data">
+        AllowOverride All
+	</Directory>
+
 Ajajxp5부터는 wizard방식으로 기본 설정 진행.
+최초 언어는 한국어로 설정. 
+Start wizard
 Admin Access 계정설정
 Global options  Default langae -한국어
 Configurations storage 지점은 빠른속도를 위해서는 No Database
+
+설치 이후 upload 파일 사이즈를 확인 한다.
+Global Configurations - Application Core - Uploaders Options
+Limitation의 File Size를 체크한다. php에 설정한대로 4G의 byte수가 할당됨.
+
+대용량 업로드를 위해서는 java 기반의 uploader plugin을 활성화 한다.
+
+- 
 
 
 
