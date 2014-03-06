@@ -118,11 +118,12 @@ command line에서 network 선택
 ####기본포트변경
 `sudo vi /etc/ssh/sshd_config`  
 항상 강조하지만  왠만한 시스템 작업은 sudo를 통한 어드민권한으로의 접근으로 진행하자. 
-`Port 22` 부분에서 포트번호를 임이의 번호로 수정하도록 한다. 
+`Port 22` 부분에서 포트번호를 수정한다.   
+`/etc/init.d/ssh restart` 
 
 ###공유기 설정.외부접근을 위한 포트포워딩
 연결된 공유기의 포트포워딩을 설정.  
-`http://111.222.333.333:xxxx   id:xxxx passwd:xxxx`  
+`http://111.222.333.33:yyyy   --> 192.168.xxx.xxx:yyyy`  
 이건 외부에서 공유기 접근할때의 정보임. 
 
 ###한글설정
@@ -137,7 +138,7 @@ Preference 오픈
 프로파일을 추가.   
 Name: SSH telnet my Ubuntu
 Shutcut key: 원하는 단축키 설정
-Command : ssh -p 1214 hkmade@221.148.161.172
+Command : ssh -p yyyy ID@111.222.333.33
 Terminal 파트에서 Character Encoding : Unicode(UTF-8) 확인
 
 
