@@ -550,13 +550,16 @@ root@miles-base-ubt02:/tmp/vmware-tools-distrib# ./vmware-install.pl
 
 이제 마운트 포인트를 만들고 /etc/fstab을 통해 부팅후 자동으로 마운트할수 있도록 설정 추가. 마친 후 시스템 리부팅
 
+VM 메뉴에서 Options - SHared Folders 에서 등록할것.
+
+
 	root@ubuntu:/mnt/hgfs# ls -la
 	total 8
 	drwxr-xr-x 2 root root 4096  3월 20 10:08 .
 	drwxr-xr-x 3 root root 4096  3월 20 10:08 ..
 	root@ubuntu:/mnt/hgfs# mkdir /nas
 	root@ubuntu:/mnt/hgfs# vi /etc/fstab
-		.host:/NAS	/nas	vmhgfs defaults,ttl=5,uid=1000,gid=1000 0 0  // 라인을 추가한다.
+		.host:/TMS	/nas	vmhgfs defaults,ttl=5,uid=1000,gid=1000 0 0  // 라인을 추가한다.
 
 	root@ubuntu:/mnt/hgfs# reboot
 	root@ubuntu:/mnt/hgfs#
