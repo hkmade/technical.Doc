@@ -2,6 +2,10 @@
 기본적으로 Host PC 위의 VMware 에 설치를 하는 환경이다. 
 32bit. 또는 64bit 어떤 ubuntu OS를 설치할 것인가? VM에 메모리 할당을 3G정도 가능하다면 64bit로 설치하자. 특히 PHP기반의 웹하드 App(Pydio)등을 사용한다면 2G이상의 파일을 다운로드하기 위해서는 64bit 설치가 필요하다.
 
+	dpkg -s libc6 | grep Arch
+	Multi-Arch: same
+	Architecture: amd64
+
 ###사전설치Check List
 - 현재 VM이 올라가는 Host PC는 공유기에서 DHCP로 IP할당.
 - 최초 설치때는 기본네트웍 설정(NAT)으로 설치 진행
@@ -141,7 +145,6 @@ Shutcut key: 원하는 단축키 설정
 Command : ssh -p yyyy ID@111.222.333.33
 Terminal 파트에서 Character Encoding : Unicode(UTF-8) 확인
 
-
 이후 작업은 텔넷으로 편하게 진행합시다.
 
 
@@ -226,10 +229,9 @@ locale_enable=YES
 8080을 웹서비스 포트로 사용한다면 위의 ports.conf에서 조정한다. 
 
 이를토대로 공유기 설정에서 포트포워딩 추가 할것.
-192.168.25.20:80 -> 211.148.161.172:8080
+192.168.xxx.xx:80 -> xxx.xxx.xxx.xx:80
 	
-http://221.148.161.172를 통해 홈페이지 확인 할 것. (공유기의 공인아이피)
-
+http://xxx.xxx.xxx.xx를 통해 홈페이지 확인 할 것. 
 설치후 기본 htdocs(홈페이지root위치)는 /var/www로 지정되어 있다. 
 
 ###Mysql
