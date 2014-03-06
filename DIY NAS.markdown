@@ -1,4 +1,15 @@
 #ubuntu desktop install
+기본적으로 Host PC 위의 VMware 에 설치를 하는 환경이다. 
+32bit. 또는 64bit 어떤 ubuntu OS를 설치할 것인가? VM에 메모리 할당을 3G정도 가능하다면 64bit로 설치하자. 특히 PHP기반의 웹하드 App(Pydio)등을 사용한다면 2G이상의 파일을 다운로드하기 위해서는 64bit 설치가 필요하다.
+
+###사전설치Check List
+- 현재 VM이 올라가는 Host PC는 공유기에서 DHCP로 IP할당.
+- 최초 설치때는 기본네트웍 설정(NAT)으로 설치 진행
+- Setting 에서 CD/DVD 에서 설치할 uBuntu ISO이미지를 적용한다. 
+- VM의 Power - Power ON to BIOS에서 Boot메뉴를 변경한다. (가상 CDROM 우선순위의 최초로)
+
+
+
 iso다운로드후 vmware에서 설치.
 vmware에서는 네트웍 설정을 bridged mode로 설정할것.
 공유기에 물려있으면 자동 dhcp할당. 바로 인터넷 연결.
@@ -13,19 +24,25 @@ port scanning으로  현재 오픈되어 있는 서비스 확인
 서비스되고 있는 포트는 전무하다. 즉 서버용 어플리케이션은 직접설치해야한다.
 
 #IP 수동할당
-상단  네트웍 아이콘 클릭
--Edit Connections.. 
--Wired - Wired connection1 -> edit
+이제 기본값으로 설치된 ubuntu에서 VM의 네트웍 설정을 기본값인 NAT에서 Bridged mode로 변경. (HOST PC와 별도로 네트웍을 독자적으로 구성.) 왜냐하면 공유기에서 HostPC와는 별도로 아이피를 할당받아야  외부에서 접근이 가능하다.   
+
+- 기존 VM1은 192.168.25.20
+- Host PC는 192.168.25.45
+- VM2는 192.168.25.30 으로 설정할 것.
+
+command line에서 network 선택
+
+- Edit Connections.. 
+- Wired - Wired connection1 -> edit
 - IPv4 Settings
 - Method - Manual
-- Address, Netmask, Gateway, DNS Server 입력
-적용 후 Establised 된 아이콘 확인
+- Address, Netmask, Gateway, DNS Server 입력  
 
+적용 후 Establised 된 아이콘 확인.   
 참고로 터니널 창은 시작버튼- 검색에서 terminal 입력
 
-
-
 #Timezone check
+최초 ubuntu 설치 언어를 한국어로 한다면 이과정은 필요없음.  
 
  date명령어로  PDT(태평양표준시)로 설정되어 있는 경우 서울시간대로 변경 필요.
  
@@ -52,6 +69,8 @@ port scanning으로  현재 오픈되어 있는 서비스 확인
 	Sun Mar 10 20:37:11 KST 2013
 
 #rdate
+최초 ubuntu 설치 언어를 한국어로 한다면 이과정은 필요없음.  
+
 	hkmade@ubuntu:/var/log/apache2$ sudo apt-get install rdate
 	[sudo] password for hkmade:
 	Reading package lists... Done
@@ -66,30 +85,29 @@ port scanning으로  현재 오픈되어 있는 서비스 확인
 	Setting up rdate (1:1.2-5) ...
 
 #한글세팅
-root@ubuntu:/etc/default# locale-gen ko_KR.EUC-KR
-Generating locales...
-  ko_KR.EUC-KR... up-to-date
-Generation complete.
-root@ubuntu:/etc/default# locale-gen ko_KR.UTF-8
-Generating locales...
-  ko_KR.UTF-8... up-to-date
-Generation complete.
+최초 ubuntu 설치 언어를 한국어로 한다면 이과정은 필요없음.  
 
-root@ubuntu:~# env | grep LANG
-LANG=en_US.UTF-8
-root@ubuntu:~#
-root@ubuntu:~# more /etc/default/locale
-LANG="en_US.UTF-8"
-root@ubuntu:~#vi /etc/default/locale
-ko_KR.UTF-8로 변경할것.
-root@ubuntu:~# env | grep LANG
-LANG=ko_KR.UTF-8
-root@ubuntu:~#
+	root@ubuntu:/etc/default# locale-gen ko_KR.EUC-KR
+	Generating locales...
+	  ko_KR.EUC-KR... up-to-date
+	Generation complete.
+	root@ubuntu:/etc/default# locale-gen ko_KR.UTF-8
+	Generating locales...
+	  ko_KR.UTF-8... up-to-date
+	Generation complete.
+
+	root@ubuntu:~# env | grep LANG
+	LANG=en_US.UTF-8
+	root@ubuntu:~#
+	root@ubuntu:~# more /etc/default/locale
+	LANG="en_US.UTF-8"
+	root@ubuntu:~#vi /etc/default/locale
+	ko_KR.UTF-8로 변경할것.
+	root@ubuntu:~# env | grep LANG
+	LANG=ko_KR.UTF-8
+	root@ubuntu:~#
 
 리부팅후 적용.
-
-
-
 
 #LAPM설치
 ###SSH
@@ -104,7 +122,7 @@ root@ubuntu:~#
 
 ###공유기 설정.외부접근을 위한 포트포워딩
 연결된 공유기의 포트포워딩을 설정.  
-`http://221.148.161.172:1213   id:hkmade passwd:Rhddl12@`  
+`http://111.222.333.333:xxxx   id:xxxx passwd:xxxx`  
 이건 외부에서 공유기 접근할때의 정보임. 
 
 ###한글설정
