@@ -1,14 +1,19 @@
-> docker 이미지 만들기
+## Wordpress docker image
 
-DockerFile Basis
-```
+# Base OS image
 FROM ubuntu:14.04
 
+# apt-get repository update
+# install APM
 RUN apt-get update
 RUN apt-get install -y apache2 php5 php5-mysql mysql-client wget
+RUN apt-get install -y php5-common libapache2-mod-php5 php-pear
+
+#wordpress version 
+ENV WORDPRESS_VERSION 4.2.2
 
 WORKDIR /var/www
-RUN wget http://ko.wordpress.org/wordpress-4.0-ko_KR.tar.gz -O - | tar -xz
+RUN wget http://ko.wordpress.org/wordpress-${WORDPRESS_VERSION}-ko_KR.tar.gz -O - | tar -xz
 
 WORKDIR /etc/apache2/sites-enabled
 RUN sed -i "s/\/var\/www\/html/\/var\/www\/wordpress/g" 000-default.conf
@@ -24,6 +29,5 @@ ADD entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT /entrypoint.sh
-```
 
 
